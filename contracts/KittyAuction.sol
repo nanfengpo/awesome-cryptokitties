@@ -2,6 +2,13 @@
 ///  This wrapper of ReverseAuction exists only so that users can create
 ///  auctions with only one transaction.
 
+/**
+ * 在这里，我们有公开的方法来拍卖猫或招标猫或繁殖猫。
+ * 实际的拍卖功能是在两个兄弟合约（一个用于买卖，一个用于繁殖）中处理的，而拍卖的创建和投标主要是通过核心合约。
+ *
+ * 即使CryptoKitties合约本身是不可变的，首席执行官也可以灵活地改变这些拍卖合约的地址，从而改变拍卖规则。
+ */
+
 contract KittyAuction is KittyBreeding {
 
     // @notice The auction contract variables are defined in KittyBase to allow
@@ -18,7 +25,7 @@ contract KittyAuction is KittyBreeding {
         require(candidateContract.isSaleClockAuction());
 
         // Set the new contract address
-        saleAuction = candidateContract;
+        saleAuction = candidateContract; // 把合约对象保存到状态变量中！
     }
 
     /// @dev Sets the reference to the siring auction.
@@ -30,7 +37,7 @@ contract KittyAuction is KittyBreeding {
         require(candidateContract.isSiringClockAuction());
 
         // Set the new contract address
-        siringAuction = candidateContract;
+        siringAuction = candidateContract; // 把合约对象保存到状态变量中！
     }
 
     /// @dev Put a kitty up for auction.

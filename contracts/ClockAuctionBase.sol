@@ -44,6 +44,7 @@ contract ClockAuctionBase {
     /// Throws if the escrow fails.
     /// @param _owner - Current owner address of token to escrow.
     /// @param _tokenId - ID of token whose approval to verify.
+    // 将NFT的所有权转让给本合同。
     function _escrow(address _owner, uint256 _tokenId) internal {
         // it will throw if transfer fails
         nonFungibleContract.transferFrom(_owner, this, _tokenId);
@@ -53,6 +54,7 @@ contract ClockAuctionBase {
     /// Returns true if the transfer succeeds.
     /// @param _receiver - Address to transfer NFT to.
     /// @param _tokenId - ID of token to transfer.
+    // 将本合同所拥有的NFT转移到另一个地址
     function _transfer(address _receiver, uint256 _tokenId) internal {
         // it will throw if transfer fails
         nonFungibleContract.transfer(_receiver, _tokenId);
@@ -80,7 +82,7 @@ contract ClockAuctionBase {
     /// @dev Cancels an auction unconditionally.
     function _cancelAuction(uint256 _tokenId, address _seller) internal {
         _removeAuction(_tokenId);
-        _transfer(_seller, _tokenId);
+        _transfer(_seller, _tokenId); // 把钱从加密猫合约地址转给seller
         AuctionCancelled(_tokenId);
     }
 
@@ -127,7 +129,7 @@ contract ClockAuctionBase {
             // before calling transfer(), and the only thing the seller
             // can DoS is the sale of their own asset! (And if it's an
             // accident, they can call cancelAuction(). )
-            seller.transfer(sellerProceeds);
+            seller.transfer(sellerProceeds); // 把钱从投标人手中转给售卖加密猫的人
         }
 
         // Calculate any excess funds included with the bid. If the excess

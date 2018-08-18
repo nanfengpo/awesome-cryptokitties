@@ -1,5 +1,8 @@
 /// @title Reverse auction modified for siring
 /// @notice We omit a fallback function to prevent accidental sends to this contract.
+/**
+ * “Siring”指的是拍卖你的猫的交配权，在那里另一个用户可以付钱给你以太，让你的猫与他们一起繁殖。
+ */
 
 contract SiringClockAuction is ClockAuction {
 
